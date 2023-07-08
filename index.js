@@ -26,9 +26,7 @@ server.use(middleware);
 
 server.use(router);
 const app = server.listen(3000, () => {
-  console.log('🚀 Trello app is up and running at:\n');
-  console.log('\x1b[4m\x1b[33m%s\x1b[0m', 'http://localhost:3000\n'); // yellow
-  console.log('Enjoy!');
+  console.log('success');
 });
 
 const io = require('socket.io')(app);

@@ -39,9 +39,9 @@ pipeline {
             steps {
                 script {
                     if (isUnix()) {
-                        sh 'npm run start &'
+                        sh 'npm run start'
                     } else {
-                        bat 'npm run start &'
+                        bat 'npm run start'
                     }
                     echo "Application startup initiated"
                 }
