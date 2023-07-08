@@ -17,6 +17,8 @@ jobs:
       run: npm i --force --legacy-peer-deps
     - name: Install Playwright Browsers
       run: npx playwright install --with-deps
+    - name: Start App
+      run: npm run start
     - name: Run Playwright tests
       run: npx playwright test
     - uses: actions/upload-artifact@v3
