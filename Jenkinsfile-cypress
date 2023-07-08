@@ -39,7 +39,7 @@ pipeline {
             steps {
                 script {
                     def consoleOutput = ""
-                    def desiredMessage = "Done."
+                    def desiredMessage = "finish"
                     if (isUnix()) {
                         consoleOutput = sh(script: 'npm run start', returnStdout: true)
                     } else {
