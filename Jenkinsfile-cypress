@@ -17,6 +17,9 @@ pipeline {
 
     stages {
         stage('Install Dependencies') {
+            options {
+                timeout(time: 5, unit: 'MINUTES')
+            }
             steps {
                 script {
                     if (isUnix()) {
@@ -30,24 +33,39 @@ pipeline {
         }
 
         stage('Start Application') {
+            options {
+                timeout(time: 5, unit: 'MINUTES')
+            }
             steps {
-                echo "Starting the application"
+                script {
+                    if (isUnix()) {
+                        sh "npm run start"
+                    } else {
+                        bat "npm run start"
+                    }
+                }
             }
         }
 
         stage('Start Tests') {
+            options {
+                timeout(time: 5, unit: 'MINUTES')
+            }
             steps {
                 script {
                     if (isUnix()) {
-                        sh "npm run start && npx cypress run -b ${BROWSER} --spec ${SPEC} --env grepTags=@${BROWSER} --headless"
+                        sh "npx cypress run -b ${BROWSER} --spec ${SPEC} --env grepTags=@${BROWSER} --headless"
                     } else {
-                        bat "npm run start && npx cypress run -b ${BROWSER} --spec ${SPEC} --env grepTags=@${BROWSER} --headless"
+                        bat "npx cypress run -b ${BROWSER} --spec ${SPEC} --env grepTags=@${BROWSER} --headless"
                     }
                 }
             }
         }
 
         stage('Generate HTML Report') {
+            options {
+                timeout(time: 5, unit: 'MINUTES')
+            }
             steps {
                 script {
                     if (isUnix()) {
@@ -60,6 +78,9 @@ pipeline {
         }
 
         stage('Deploy') {
+            options {
+                timeout(time: 5, unit: 'MINUTES')
+            }
             steps {
                 echo "Deploying the application"
             }
