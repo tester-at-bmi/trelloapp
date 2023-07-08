@@ -44,9 +44,12 @@ pipeline {
                         startupCommand = bat "npm run start"
                     }
                     def proc = "${startupCommand}".execute()
-                    
-                    // Wait for the startup command to complete
-                    def exitCode = proc.waitFor()
+                    // Redirect the command output to a file
+                    def output = new File("startup.log")
+                    proc.waitForProcessOutput(output, System.err)
+
+                    // Get the exit code
+                    def exitCode = proc.exitValue()
 
                     if (exitCode == 0) {
                         // Application startup was successful
