@@ -38,21 +38,13 @@ pipeline {
             }
             steps {
                 script {
-                    def startupCommand
-                    if (isUnix()) {
-                        startupCommand = sh(returnStdout: true, script: 'npm run start')
-                    } else {
-                        startupCommand = bat(returnStdout: true, script: 'npm run start')
-                    }
-                    def exitCode = startupCommand.trim().toInteger()
+                          if (isUnix()) {
+        sh 'npm run start &'
+      } else {
+        bat 'start npm run start'
+      }
+      echo "Application startup initiated"
 
-                    if (exitCode == 0) {
-                        // Application startup was successful
-                        echo "Application started successfully!"
-                    } else {
-                        // Application startup failed
-                        error "Failed to start the application!"
-                    }
                 }
             }
         }
