@@ -11,6 +11,10 @@ pipeline {
         ansiColor('xterm')
     }
 
+    tools {
+        nodejs 'nodejs' // Specify the Node.js installation defined in Jenkins Global Tool Configuration
+    }
+
     stages {
         stage('Install Dependencies') {
             steps {
