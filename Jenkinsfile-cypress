@@ -31,13 +31,7 @@ pipeline {
 
         stage('Start Application') {
             steps {
-                script {
-                    if (isUnix()) {
-                        sh "npm run start"
-                    } else {
-                        bat "npm run start"
-                    }
-                }
+                echo "Starting the application"
             }
         }
 
@@ -45,8 +39,10 @@ pipeline {
             steps {
                 script {
                     if (isUnix()) {
+                        sh "npm run start"
                         sh "npx cypress run -b ${BROWSER} --spec ${SPEC} --env grepTags=@${BROWSER} --headless"
                     } else {
+                        bat "npm run start"
                         bat "npx cypress run -b ${BROWSER} --spec ${SPEC} --env grepTags=@${BROWSER} --headless"
                     }
                 }
