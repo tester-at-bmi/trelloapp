@@ -6,7 +6,7 @@ cypress-report
 public/uploaded/*
 public/css
 public/js
-public/data
+public/data/*
 playwright/test-results/
 playwright-report
 playwright/.cache/
