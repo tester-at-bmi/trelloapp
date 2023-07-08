@@ -20,10 +20,10 @@ pipeline {
             steps {
                 script {
                     if (isUnix()) {
-                        sh "npm i"
+                        sh "npm i --force --legacy-peer-deps"
                         sh "npx playwright install-deps webkit"
                     } else {
-                        bat "npm i"
+                        bat "npm i --force --legacy-peer-deps"
                     }
                 }
             }
