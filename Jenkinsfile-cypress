@@ -39,9 +39,9 @@ pipeline {
             steps {
                 script {
                     if (isUnix()) {
-                        def startupCommand = sh "npm run start"
+                        startupCommand = sh "npm run start"
                     } else {
-                        def startupCommand = bat "npm run start"
+                        startupCommand = bat "npm run start"
                     }
                     def proc = "${startupCommand}".execute()
                     
