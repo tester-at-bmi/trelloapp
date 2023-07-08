@@ -28,7 +28,7 @@ The project includes now multiple test frameworks like [Cypress](https://github.
 
 A simple trello clone application built on vue and json-server by [Filip Hric](https://github.com/filiphric) and [you can find it here](https://github.com/filiphric/trelloapp).
 
-The original version of this app was built by Zack Thoutt and [you can find it here](https://github.com/zackthoutt/vue-trello). 
+The original version of this app was built by [Zack Thoutt](https://github.com/zackthoutt) and [you can find it here](https://github.com/zackthoutt/vue-trello). 
 
 Installation
 `npm install`

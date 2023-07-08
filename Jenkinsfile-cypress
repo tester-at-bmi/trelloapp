@@ -14,41 +14,49 @@ pipeline {
     stages {
         stage('Install Dependencies') {
             steps {
-                if (isUnix()) {
-                    sh: "npm i"
-                    sh: "npx playwright install-deps webkit"
-                } else {
-                    bat: "npm i"
+                script {
+                    if (isUnix()) {
+                        sh: "npm i"
+                        sh: "npx playwright install-deps webkit"
+                    } else {
+                        bat: "npm i"
+                    }
                 }
             }
         }
 
         stage('Start Application') {
             steps {
-                if (isUnix()) {
-                    sh: "npm run start"
-                } else {
-                    bat: "npm run start"
+                script {
+                    if (isUnix()) {
+                        sh: "npm run start"
+                    } else {
+                        bat: "npm run start"
+                    }
                 }
             }
         }
 
         stage('Start Tests') {
             steps {
-                if (isUnix()) {
-                    sh: "npx cypress run -b ${BROWSER} --spec ${SPEC} --env grepTags=@${BROWSER} --headless"
-                } else {
-                    bat: "npx cypress run -b ${BROWSER} --spec ${SPEC} --env grepTags=@${BROWSER} --headless"
+                script {
+                    if (isUnix()) {
+                        sh: "npx cypress run -b ${BROWSER} --spec ${SPEC} --env grepTags=@${BROWSER} --headless"
+                    } else {
+                        bat: "npx cypress run -b ${BROWSER} --spec ${SPEC} --env grepTags=@${BROWSER} --headless"
+                    }
                 }
             }
         }
 
         stage('Generate HTML Report') {
             steps {
-                if (isUnix()) {
-                    sh: "npm run cy:posttest"
-                } else {
-                    bat: "npm run cy:posttest"
+                script {
+                    if (isUnix()) {
+                        sh: "npm run cy:posttest"
+                    } else {
+                        bat: "npm run cy:posttest"
+                    }
                 }
             }
         }
