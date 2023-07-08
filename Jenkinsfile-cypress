@@ -38,10 +38,18 @@ pipeline {
             }
             steps {
                 script {
-                    if (isUnix()) {
-                        sh "npm run start"
+                    def startupCommand = isUnix() ? sh "npm run start" : bat "npm run start"
+                    def proc = "${startupCommand}".execute()
+                    
+                    // Wait for the startup command to complete
+                    def exitCode = proc.waitFor()
+
+                    if (exitCode == 0) {
+                        // Application startup was successful
+                        echo "Application started successfully!"
                     } else {
-                        bat "npm run start"
+                        // Application startup failed
+                        error "Failed to start the application!"
                     }
                 }
             }
