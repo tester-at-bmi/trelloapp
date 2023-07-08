@@ -1,0 +1,17 @@
+{
+  "compilerOptions": {
+    "target": "es5",
+    "lib": ["es5", "dom"],
+    "types": [
+      "cypress", 
+      "cypress-real-events", 
+      "@cypress/grep",
+      "node"
+    ],
+    "allowJs": true,
+    "baseUrl": "./"
+  },
+  "include": [
+    "**/*.ts"
+  ]
+}

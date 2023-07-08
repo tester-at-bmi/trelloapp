@@ -1,0 +1,11 @@
+node_modules
+.nyc_output
+coverage
+cypress/downloads
+cypress-report
+public/uploaded/*
+public/css
+public/js
+playwright/test-results/
+playwright-report
+playwright/.cache/

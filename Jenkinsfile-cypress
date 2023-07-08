@@ -1,0 +1,68 @@
+pipeline {
+
+    agent any
+
+    parameters {
+        string(name: 'SPEC', defaultValue: 'cypress/e2e/**/**', description: '')
+        choice(name: 'BROWSER', choices['chrome', 'edge', 'firefox', 'webkit'], description: '')
+    }
+
+    options {
+        ansiColor('xterm')
+    }
+
+    stages {
+        stage('Install Dependencies') {
+            steps {
+                if (isUnix()) {
+                    sh: "npm i"
+                    sh: "npx playwright install-deps webkit"
+                } else {
+                    bat: "npm i"
+                }
+            }
+        }
+
+        stage('Start Application') {
+            steps {
+                if (isUnix()) {
+                    sh: "npm run start"
+                } else {
+                    bat: "npm run start"
+                }
+            }
+        }
+
+        stage('Start Tests') {
+            steps {
+                if (isUnix()) {
+                    sh: "npx cypress run -b ${BROWSER} --spec ${SPEC} --env grepTags=@${BROWSER} --headless"
+                } else {
+                    bat: "npx cypress run -b ${BROWSER} --spec ${SPEC} --env grepTags=@${BROWSER} --headless"
+                }
+            }
+        }
+
+        stage('Generate HTML Report') {
+            steps {
+                if (isUnix()) {
+                    sh: "npm run cy:posttest"
+                } else {
+                    bat: "npm run cy:posttest"
+                }
+            }
+        }
+
+        stage('Deploy') {
+            steps {
+                echo "Deploying the application"
+            }
+        }
+    }
+
+    post {
+        always {
+            publishHTML([allowMissing: false, alwaysLinkToLastBuild: false, keepAll: true, reportDir: 'cypress-report', reportFiles: 'index.html', reportName: 'HTML Report', reportTitles: ''])
+        }
+    }
+}
