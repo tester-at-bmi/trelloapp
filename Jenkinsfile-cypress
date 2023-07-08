@@ -38,18 +38,13 @@ pipeline {
             }
             steps {
                 script {
+                    def startupCommand
                     if (isUnix()) {
-                        startupCommand = sh "npm run start"
+                        startupCommand = sh(returnStdout: true, script: 'npm run start')
                     } else {
-                        startupCommand = bat "npm run start"
+                        startupCommand = bat(returnStdout: true, script: 'npm run start')
                     }
-                    def proc = "${startupCommand}".execute()
-                    // Redirect the command output to a file
-                    def output = new File("startup.log")
-                    proc.waitForProcessOutput(output, System.err)
-
-                    // Get the exit code
-                    def exitCode = proc.exitValue()
+                    def exitCode = startupCommand.trim().toInteger()
 
                     if (exitCode == 0) {
                         // Application startup was successful
