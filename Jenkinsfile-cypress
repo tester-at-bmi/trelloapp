@@ -38,12 +38,18 @@ pipeline {
             }
             steps {
                 script {
+                    def consoleOutput = ""
+                    def desiredMessage = "Done."
                     if (isUnix()) {
-                        sh 'npm run start'
+                        consoleOutput = sh(script: 'npm run start', returnStdout: true)
                     } else {
-                        bat 'npm run start'
+                        consoleOutput = bat(script: 'npm run start')
                     }
-                    return exit = 0;
+                    if (consoleOutput.contains(desiredMessage)) {
+                        echo "The desired message '${desiredMessage}' appeared. Continuing with the pipeline..."
+                    } else {
+                        error "The desired message '${desiredMessage}' did not appear. Stopping the pipeline..."
+                    }
                 }
             }
         }
