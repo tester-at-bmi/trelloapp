@@ -39,9 +39,9 @@ pipeline {
             steps {
                 script {
                     if (isUnix()) {
-                        sh 'npm run start > app.log 2>&1'
+                        sh 'npm run start'
                     } else {
-                        bat 'npm run start > app.log 2>&1'
+                        bat 'npm run start'
                     }
                     return;
                 }
