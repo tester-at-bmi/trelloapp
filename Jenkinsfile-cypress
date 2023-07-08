@@ -38,18 +38,12 @@ pipeline {
             }
             steps {
                 script {
-                    def consoleOutput = ""
-                    def desiredMessage = "finish"
                     if (isUnix()) {
-                        consoleOutput = sh(script: 'npm run start', returnStdout: true)
+                        sh 'npm run start'
                     } else {
-                        consoleOutput = bat(script: 'npm run start')
+                        bat 'npm run start && npx cypress run -b ${BROWSER} --spec ${SPEC} --env grepTags=@${BROWSER} --headless'
                     }
-                    if (consoleOutput.contains(desiredMessage)) {
-                        echo "The desired message '${desiredMessage}' appeared. Continuing with the pipeline..."
-                    } else {
-                        error "The desired message '${desiredMessage}' did not appear. Stopping the pipeline..."
-                    }
+                    return;
                 }
             }
         }
