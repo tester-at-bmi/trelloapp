@@ -12,7 +12,7 @@ pipeline {
     }
 
     tools {
-        nodejs 'node' // Specify the Node.js installation defined in Jenkins Global Tool Configuration
+        nodejs 'node'
     }
 
     stages {
@@ -39,11 +39,11 @@ pipeline {
             steps {
                 script {
                     if (isUnix()) {
-                        sh 'npm run start'
+                        sh 'npm run start > app.log 2>&1'
                     } else {
-                        bat 'npm run start'
+                        bat 'npm run start > app.log 2>&1'
                     }
-                    currentBuild.result = 'SUCCESS'
+                    return;
                 }
             }
         }
