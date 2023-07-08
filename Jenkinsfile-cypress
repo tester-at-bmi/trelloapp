@@ -26,7 +26,7 @@ pipeline {
                         sh "npm i --force --legacy-peer-deps"
                         sh "npx playwright install-deps webkit"
                     } else {
-                        bat "npm i --force --legacy-peer-deps"
+                        sh "npm i --force --legacy-peer-deps"
                     }
                 }
             }
@@ -41,7 +41,7 @@ pipeline {
                     if (isUnix()) {
                         sh "npm run start"
                     } else {
-                        bat "npm run start && npx cypress run -b ${BROWSER} --spec ${SPEC} --env grepTags=@${BROWSER} --headless"
+                        sh "npm run start"
                     }
                     return;
                 }
@@ -57,7 +57,7 @@ pipeline {
                     if (isUnix()) {
                         sh "npx cypress run -b ${BROWSER} --spec ${SPEC} --env grepTags=@${BROWSER} --headless"
                     } else {
-                        bat "npx cypress run -b ${BROWSER} --spec ${SPEC} --env grepTags=@${BROWSER} --headless"
+                        sh "npx cypress run -b ${BROWSER} --spec ${SPEC} --env grepTags=@${BROWSER} --headless"
                     }
                 }
             }
@@ -72,7 +72,7 @@ pipeline {
                     if (isUnix()) {
                         sh "npm run cy:posttest"
                     } else {
-                        bat "npm run cy:posttest"
+                        sh "npm run cy:posttest"
                     }
                 }
             }
