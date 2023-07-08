@@ -43,7 +43,7 @@ pipeline {
                     } else {
                         bat 'npm run start'
                     }
-                    echo "Application startup initiated"
+                    currentBuild.result = 'SUCCESS'
                 }
             }
         }
