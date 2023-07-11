@@ -25,9 +25,7 @@ server.use(jsonServer.bodyParser);
 server.use(middleware);
 
 server.use(router);
-const app = server.listen(3000, () => {
-  process.exit(0);
-});
+const app = server.listen(3000, () => {});
 
 const io = require('socket.io')(app);
 
