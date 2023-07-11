@@ -39,9 +39,11 @@ pipeline {
             steps {
                 script {
                     if (isUnix()) {
-                        sh "npm run start && npx cypress run -b ${BROWSER} --spec ${SPEC} --env grepTags=@${BROWSER} --headless"
+                        sh "npm run start"
+                        sh "npm run start & npx cypress run -b ${BROWSER} --spec ${SPEC} --env grepTags=@${BROWSER} --headless"
                     } else {
-                        bat "npm run start && npx cypress run -b ${BROWSER} --spec ${SPEC} --env grepTags=@${BROWSER} --headless"
+                        bat "npm run start"
+			bat "npx cypress run -b ${BROWSER} --spec ${SPEC} --env grepTags=@${BROWSER} --headless"
                     }
                 }
             }
