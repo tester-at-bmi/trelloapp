@@ -152,6 +152,12 @@ it('signup existing user', { tags: ['@chrome', '@firefox', '@edge', '@webkit'] }
 
 });
 
+
+
+
+
+
+
 it('log in existing user', { tags: ['@chrome', '@firefox', '@edge', '@webkit'] }, () => {
 
   cy
@@ -217,6 +223,12 @@ it('log in existing user', { tags: ['@chrome', '@firefox', '@edge', '@webkit'] }
     .should('not.exist');
 
 });
+
+
+
+
+
+
 
 it('should handle not existing user', { tags: ['@chrome', '@firefox', '@edge'] }, () => {
 

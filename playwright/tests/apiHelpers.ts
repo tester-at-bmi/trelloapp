@@ -90,3 +90,23 @@ export async function createTaskViaApi(request, getBoardId, getListId, taskName)
   expect(task.ok()).toBeTruthy();
   return task;
 }
+
+
+/**
+ * 
+ * @param request 
+ * @param getBoardId 
+ * @param getListId 
+ * @param taskName 
+ * @returns 
+ */
+export async function signUpViaApi(request, getEmail, getPassword): Promise<any> {
+  const signup = await request.post(`/api/signup`, {
+    data: {
+      email: getEmail,
+      password: getPassword,
+    }
+  });
+  expect(signup.ok()).toBeTruthy();
+  return signup;
+}
