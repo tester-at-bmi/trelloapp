@@ -32,16 +32,16 @@ pipeline {
             }
         }
 
-        stage('Start application and run e2e tests') {
+        stage('Run e2e tests') {
             options {
                 timeout(time: 5, unit: 'MINUTES')
             }
             steps {
                 script {
                     if (isUnix()) {
-                        sh "npm run start && npx cypress run -b ${BROWSER} --spec ${SPEC} --env grepTags=@${BROWSER} --headless"
+                        sh "npx cypress run -b ${BROWSER} --spec ${SPEC} --env grepTags=@${BROWSER} --headless"
                     } else {
-			bat "npm run start && npx cypress run -b ${BROWSER} --spec ${SPEC} --env grepTags=@${BROWSER} --headless"
+			            bat "npx cypress run -b ${BROWSER} --spec ${SPEC} --env grepTags=@${BROWSER} --headless"
                     }
                 }
             }
