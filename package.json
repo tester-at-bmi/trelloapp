@@ -31,7 +31,7 @@
     "clipboardy": "^2.3.0",
     "connect-busboy": "^1.0.0",
     "connect-history-api-fallback": "^1.6.0",
-    "cypress": "^12.17.0",
+    "cypress": "^12.17.1",
     "cypress-file-upload": "^4.1.1",
     "cypress-multi-reporters": "^1.6.3",
     "cypress-real-events": "^1.8.1",
