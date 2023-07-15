@@ -9,11 +9,13 @@ test.beforeEach(async ({ request }) => {
 
 test("Opens a board", async ({ page }) => {
     await page.goto('/');
+    await page.waitForLoadState('domcontentloaded', { timeout: 4000 });
     await page.click('[data-cy="create-board"]');
     await page.click('[data-cy="new-board-create"]');
     await page.click('[data-cy="create-board"]');
     await page.fill('[data-cy="new-board-input"]', 'New board');
     await page.keyboard.press('Enter');
+    await page.waitForLoadState('domcontentloaded', { timeout: 4000 });
 });
 
 test("Stars a board", async ({ page, request }) => {
@@ -22,6 +24,8 @@ test("Stars a board", async ({ page, request }) => {
     getBoardId = response.id;
 
     await page.goto('/');
+
+    await page.waitForLoadState('domcontentloaded', { timeout: 4000 });
 
     const boardItems = await page.$$('[data-cy="board-item"]');
     await Promise.all(boardItems.map(async (item) => {
@@ -48,6 +52,7 @@ test("Renames a board via api", async ({ page, request, context }) => {
     getBoardId = response.id;
 
     await page.goto('/');
+    await page.waitForLoadState('domcontentloaded', { timeout: 4000 });
 
     const boardItem = await page.waitForSelector('[data-cy="board-item"]');
     const textContent = await boardItem.textContent();
@@ -67,6 +72,7 @@ test("Deletes board via api", async ({ page, request }) => {
     getBoardId = response.id;
 
     await page.goto('/');
+    await page.waitForLoadState('domcontentloaded', { timeout: 4000 });
 
     const boardItems = await page.$$('[data-cy="board-item"]');
     await Promise.all(boardItems.map(async (item) => {
@@ -88,11 +94,13 @@ test("Shows an error when network does not work on creating board", async ({ pag
     });
       
     await page.goto(`/`);
+    await page.waitForLoadState('domcontentloaded', { timeout: 4000 });
 
     await page.click('[data-cy=create-board]');
 
     await page.fill('[data-cy=new-board-input]', 'New Board');
     await page.keyboard.press('Enter');
+    await page.waitForLoadState('domcontentloaded', { timeout: 4000 });
 
     await page.waitForSelector('[id="errorMessage"]', { state: 'visible', timeout: 5000 });
     await page.waitForSelector('[id="errorMessage"]', { state: 'hidden', timeout: 5000 });
